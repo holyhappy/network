@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Jan's Network Topology</title>
+    <style>
+        body { background: #0f172a; color: #38bdf8; font-family: 'Courier New', monospace; }
+        .network-container { display: flex; justify-content: center; align-items: center; height: 80vh; }
+        .router { width: 100px; height: 60px; border: 2px solid #38bdf8; border-radius: 8px; text-align: center; line-height: 60px; }
+        .line { stroke: #38bdf8; stroke-width: 2; stroke-dasharray: 5; animation: flow 2s linear infinite; }
+        @keyframes flow { to { stroke-dashoffset: -20; } }
+    </style>
+</head>
+<body>
+    <h1>Network Status: Active</h1>
+    <div class="network-container">
+        <svg width="600" height="400">
+            <rect x="50" y="170" width="100" height="60" rx="8" fill="none" stroke="#38bdf8" stroke-width="2" />
+            <text x="65" y="205" fill="#38bdf8">Router 1</text>
+            
+            <line class="line" x1="150" y1="200" x2="450" y2="200" />
+            
+            <rect x="450" y="170" width="100" height="60" rx="8" fill="none" stroke="#38bdf8" stroke-width="2" />
+            <text x="465" y="205" fill="#38bdf8">Router 2</text>
+        </svg>
+    </div>
+</body>
+</html>
