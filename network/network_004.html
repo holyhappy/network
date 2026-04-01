@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Jan's Node: Seuttergasse</title>
+    <style>
+        body { 
+            background: #020617; 
+            color: #22d3ee; 
+            font-family: 'Courier New', monospace; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        h1 { border-bottom: 2px solid #22d3ee; padding-bottom: 10px; font-size: 1.5rem; text-shadow: 0 0 10px #22d3ee; }
+        .network-stage { width: 100%; max-width: 900px; margin-top: 50px; }
+        
+        #ping-dot { fill: #f43f5e; filter: drop-shadow(0 0 8px #f43f5e); display: none; }
+        .device-label { font-size: 12px; fill: #94a3b8; }
+        .ip-label { font-size: 11px; fill: #22d3ee; font-weight: bold; }
+        .connection-line { stroke: #1e293b; stroke-width: 3; fill: none; }
+    </style>
+</head>
+<body>
+
+<h1>SYSTEM STATUS: ACTIVE // NODE: SEUTTERGASSE 24</h1>
+
+<div class="network-stage">
+    <svg viewBox="0 0 900 500" width="100%" height="auto">
+        <defs>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <path id="main-trunk" d="M 150 150 L 750 150" class="connection-line" />
+        <path d="M 150 150 L 750 150" stroke="#22d3ee" stroke-width="1" stroke-dasharray="8" opacity="0.4" fill="none" />
+
+        <circle id="ping-dot" r="5" cx="0" cy="0">
+            <animateMotion id="ping-anim" dur="1.8s" repeatCount="1" begin="indefinite"><mpath href="#main-trunk"/></animateMotion>
+        </circle>
+
+        <g transform="translate(50, 110)">
+            <rect width="120" height="80" rx="10" fill="#0f172a" stroke="#22d3ee" stroke-width="2" filter="url(#glow)" />
+            <text x="60" y="-15" text-anchor="middle" class="device-label">ZTE MC888 (5G)</text>
+            <text x="60" y="45" text-anchor="middle" fill="#22d3ee" style="font-size: 16px;">GATEWAY</text>
+            <text x="60" y="100" text-anchor="middle" class="ip-label">192.168.0.1</text>
+        </g>
+
+        <g transform="translate(730, 110)">
+            <rect width="120" height="80" rx="10" fill="#0f172a" stroke="#22d3ee" stroke-width="2" filter="url(#glow)" />
+            <text x="60" y="-15" text-anchor="middle" class="device-label">ARCHER MR600</text>
+            <text x="60" y="45" text-anchor="middle" fill="#22d3ee" style="font-size: 16px;">SWITCH</text>
+            <text x="60" y="100" text-anchor="middle" class="ip-label">192.168.0.2</text>
+        </g>
+
+        <g transform="translate(350, 320)">
+            <rect x="0" y="0" width="90" height="60" rx="5" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5" />
+            <line x1="45" y1="0" x2="45" y2="-170" stroke="#22d3ee" stroke-width="1" opacity="0.3" />
+            <text x="45" y="40" text-anchor="middle" class="device-label" style="fill:#22d3ee">PC_01 (SUSE)</text>
+
+            <rect x="150" y="0" width="90" height="60" rx="5" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5" />
+            <line x1="195" y1="0" x2="195" y2="-170" stroke="#22d3ee" stroke-width="1" opacity="0.3" />
+            <text x="195" y="40" text-anchor="middle" class="device-label" style="fill:#22d3ee">PC_02 (ADMIN)</text>
+        </g>
+    </svg>
+</div>
+
+<script>
+    const dot = document.getElementById('ping-dot');
+    const anim = document.getElementById('ping-anim');
+    function trigger() { dot.style.display='block'; anim.beginElement(); setTimeout(()=>dot.style.display='none', 1800); }
+    setInterval(trigger, 4000);
+    setTimeout(trigger, 1000);
+</script>
+
+</body>
+</html>
