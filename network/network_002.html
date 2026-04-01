@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Jan's Cyber-Network Node</title>
+    <style>
+        body {
+            background: #020617;
+            color: #22d3ee;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .status-header { border-bottom: 1px solid #22d3ee; margin-bottom: 40px; padding: 10px; }
+
+        /* Animation für den Ping-Punkt */
+        #ping-dot {
+            fill: #f43f5e; /* Ein kräftiges Rot/Pink für den Impuls */
+            filter: drop-shadow(0 0 5px #f43f5e);
+            display: none; /* Wird per JS aktiviert */
+        }
+
+        .router-label { font-size: 12px; fill: #94a3b8; }
+        .ip-label { font-size: 10px; fill: #22d3ee; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="status-header">
+    <h1>SYSTEM STATUS: OPTIMAL // NODE: SEUTTERGASSE</h1>
+</div>
+
+<svg width="800" height="300" viewBox="0 0 800 300">
+    <defs>
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <path id="network-path" d="M 150 150 L 650 150" stroke="#1e293b" stroke-width="4" fill="none" />
+    <path d="M 150 150 L 650 150" stroke="#22d3ee" stroke-width="1" stroke-dasharray="4" fill="none" opacity="0.3" />
+
+    <circle id="ping-dot" r="4" cx="0" cy="0">
+        <animateMotion id="ping-animation" dur="1.5s" repeatCount="1" begin="indefinite">
+            <mpath href="#network-path"/>
+        </animateMotion>
+    </circle>
+
+    <g transform="translate(50, 110)">
+        <rect width="100" height="80" rx="5" fill="#0f172a" stroke="#22d3ee" stroke-width="2" filter="url(#glow)" />
+        <text x="50" y="-10" text-anchor="middle" class="router-label">ZTE MC888 (5G)</text>
+        <text x="50" y="45" text-anchor="middle" fill="#22d3ee" style="font-size: 14px;">WAN</text>
+        <text x="50" y="95" text-anchor="middle" class="ip-label">192.168.0.1</text>
+    </g>
+
+    <g transform="translate(650, 110)">
+        <rect width="100" height="80" rx="5" fill="#0f172a" stroke="#22d3ee" stroke-width="2" filter="url(#glow)" />
+        <text x="50" y="-10" text-anchor="middle" class="router-label">Archer MR600</text>
+        <text x="50" y="45" text-anchor="middle" fill="#22d3ee" style="font-size: 14px;">LAN/AP</text>
+        <text x="50" y="95" text-anchor="middle" class="ip-label">192.168.0.2</text>
+    </g>
+</svg>
+
+<script>
+    const pingDot = document.getElementById('ping-dot');
+    const anim = document.getElementById('ping-animation');
+
+    function triggerPing() {
+        pingDot.style.display = 'block';
+        anim.beginElement();
+
+        // Nach Ablauf der Animation den Punkt wieder verstecken
+        setTimeout(() => {
+            pingDot.style.display = 'none';
+        }, 1500);
+    }
+
+    // Alle 3 Sekunden einen Ping senden
+    setInterval(triggerPing, 3000);
+
+    // Erster Start
+    setTimeout(triggerPing, 1000);
+</script>
+
+</body>
+</html>
